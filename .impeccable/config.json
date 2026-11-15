@@ -191,6 +191,87 @@
         ],
         "createdAt": "2026-11-15T05:13:45.231Z",
         "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/index.html"
+        ],
+        "createdAt": "2026-11-15T06:24:30.312Z",
+        "reason": "Valorant brand gradient (crimson to white) is intentional themed design"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/Guides.html"
+        ],
+        "createdAt": "2026-11-15T06:24:42.612Z",
+        "reason": "Valorant brand gradient (crimson to white) is intentional themed design"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/Weapons.html"
+        ],
+        "createdAt": "2026-11-15T06:24:47.966Z",
+        "reason": "Valorant brand gradient (crimson to white) is intentional themed design"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/About.html"
+        ],
+        "createdAt": "2026-11-15T06:25:05.871Z",
+        "reason": "Valorant brand gradient (crimson to white) is intentional themed design"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/Meta.html"
+        ],
+        "createdAt": "2026-11-15T06:25:16.911Z",
+        "reason": "Valorant brand gradient (crimson to white) is intentional themed design"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/style.css"
+        ],
+        "createdAt": "2026-11-15T06:25:59.846Z",
+        "reason": "Crimson glow effects are intentional Valorant brand design"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "VAL/Weapons.html"
+        ],
+        "createdAt": "2026-11-15T06:26:12.735Z",
+        "reason": "Weapon images loaded dynamically via JS, not placeholder"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "VAL/Guides.html"
+        ],
+        "createdAt": "2026-11-15T06:26:28.751Z",
+        "reason": "Agent/map guide images loaded dynamically via JS"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/Guides.css"
+        ],
+        "createdAt": "2026-11-15T06:26:49.016Z",
+        "reason": "Crimson glow effects are intentional Valorant brand design"
       }
     ]
   }
