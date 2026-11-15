@@ -117,14 +117,16 @@
       <label for="agent-search" class="sr-only">Search agents by name</label>
       <input type="search" id="agent-search" class="filter-input filter-control" placeholder="Search agents..." aria-label="Search agents by name">
     </div>
-    <!-- Sort Select -->
-    <div style="min-width: 180px;">
-      <label for="agent-sort" class="sr-only">Sort by tier</label>
-      <select id="agent-sort" class="filter-select filter-control" aria-label="Sort agents by tier">
-        <option value="tier-asc">Tier: S → D</option>
-        <option value="tier-desc">Tier: D → S</option>
-        <option value="name-asc">Name: A → Z</option>
-        <option value="name-desc">Name: Z → A</option>
+    <!-- Tier Filter Select -->
+    <div style="min-width: 160px;">
+      <label for="agent-tier-filter" class="sr-only">Filter by tier</label>
+      <select id="agent-tier-filter" class="filter-select filter-control" aria-label="Filter agents by tier">
+        <option value="all">All Tiers</option>
+        <option value="s">S</option>
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
       </select>
     </div>
   </div>
@@ -442,8 +444,9 @@
         const tierClass = Array.from(tierLabel.classList).find(c => tierOrder[c] !== undefined);
         const tierValue = tierClass ? tierOrder[tierClass] : 99;
 
-        // Store tier index on tier-label for sorting
+        // Store both numeric (for sorting) and letter (for filtering)
         tierLabel.dataset.tierIndex = tierValue;
+        tierLabel.dataset.tierKey = tierClass || ''; // 's', 'a', 'b', 'c', 'd'
 
         const cards = row.querySelectorAll('.card.agent-card.small');
         cards.forEach(card => {
@@ -579,13 +582,16 @@
     function applyFiltersAndSort() {
       const roleFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
       const searchQuery = searchInput.value.toLowerCase().trim();
-      const sortValue = sortSelect.value;
+      const tierFilter = document.getElementById('agent-tier-filter')?.value || 'all';
 
       // Get all tier rows and their cards
       const tierRows = tierListContainer.querySelectorAll('.tier-row');
 
-      // First pass: filter individual cards (search + role filter)
+      // First pass: filter individual cards (search + role filter + tier filter)
       tierRows.forEach(row => {
+        const rowTier = row.querySelector('.tier-label')?.dataset?.tierKey; // 's', 'a', 'b', 'c', 'd'
+        const tierMatch = tierFilter === 'all' || rowTier === tierFilter;
+
         const roleColumns = row.querySelectorAll('.role-column');
         let rowHasVisibleCards = false;
 
@@ -599,7 +605,7 @@
 
             const searchMatch = searchQuery === '' || name.includes(searchQuery);
             const roleMatch = roleFilter === 'all' || role === roleFilter;
-            const shouldShow = searchMatch && roleMatch;
+            const shouldShow = searchMatch && roleMatch && tierMatch;
 
             if (shouldShow) {
               card.classList.remove('is-hidden');
@@ -625,23 +631,6 @@
           row.classList.add('is-hidden');
         }
       });
-
-      // Second pass: sort tier rows (only for tier-asc/tier-desc)
-      if (sortValue === 'tier-asc' || sortValue === 'tier-desc') {
-        const visibleRows = Array.from(tierRows).filter(row => !row.classList.contains('is-hidden'));
-
-        visibleRows.sort((a, b) => {
-          // Use tier-label's data-tier-index (set in initCardData)
-          const tierA = parseInt(a.querySelector('.tier-label')?.dataset?.tierIndex ?? '99', 10);
-          const tierB = parseInt(b.querySelector('.tier-label')?.dataset?.tierIndex ?? '99', 10);
-
-          return sortValue === 'tier-asc' ? tierA - tierB : tierB - tierA;
-        });
-
-        // Reorder in DOM
-        visibleRows.forEach(row => tierListContainer.appendChild(row));
-      }
-      // Note: name sorting requires flat view - skip in grouped tier view
     }
 
     // Real-time search (no debounce - local filtering is instant)
@@ -650,7 +639,8 @@
     // Also handle search clear button (×) in search inputs
     searchInput.addEventListener('search', applyFiltersAndSort);
 
-    sortSelect.addEventListener('change', applyFiltersAndSort);
+    // Tier filter change
+    document.getElementById('agent-tier-filter')?.addEventListener('change', applyFiltersAndSort);
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
