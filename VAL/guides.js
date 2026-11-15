@@ -1102,30 +1102,34 @@ const featuredGuidesData = {
     title: "Map Callouts",
     tag: "Maps",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>`,
-    overview: "Standardized callouts are the language of competitive Valorant. Precise, concise communication lets your team react instantly — 'One Heaven A' is infinitely better than 'Guy up there on the right'. Every competitive map has established callouts used by pros globally. Learning them is free Elo.",
+    overview: "Standardized callouts are the language of competitive Valorant. Precise, concise communication lets your team react instantly — 'One Heaven A' is infinitely better than 'Guy up there on the right'. As of Patch 13.10, the Competitive pool has 7 maps: Abyss, Bind, Corrode, Haven, Lotus, Summit, Sunset. Learn these first for ranked play.",
     concepts: [
       "Universal Directions — 'Heaven' (high), 'Hell' (low), 'CT' (defender spawn), 'T/Attacker' side",
       "Site Anatomy — 'Default' (standard plant), 'Safe' (behind cover), 'Open' (exposed), 'Corner'",
       "Map Control — 'Main', 'Lobby', 'Mid', 'Courtyard', 'Market', 'Garage', 'Sewers'",
       "Timing Calls — 'Rotating', 'Pushing', 'Holding', 'Flanking', 'Lurking'",
-      "Info Format — Count + Location + Action (e.g., 'Two Heaven A, pushing site')"
+      "Info Format — Count + Location + Action (e.g., 'Two Heaven A, pushing site')",
+      "Current Competitive Maps (7) — Abyss, Bind, Corrode, Haven, Lotus, Summit, Sunset",
+      "Unrated/Swiftplay Only (6) — Ascent, Breeze, Fracture, Icebox, Pearl, Split"
     ],
     tips: [
       "Learn ONE map's callouts perfectly before moving to next",
       "Use short forms: 'A Main' → 'Main', 'B Heaven' → 'B Heaven'",
       "Call DEAD enemies too — 'One down Heaven A' = team can push",
       "Avoid relative terms: 'Left/Right' depends on perspective. Use map names.",
-      "Say 'Unknown' if unsure — wrong info is worse than no info"
+      "Say 'Unknown' if unsure — wrong info is worse than no info",
+      "Priority: Learn callouts for the 7 Competitive maps first, then your main Unrated maps"
     ],
     mistakes: [
       "Using 'Left/Right' instead of map callouts",
       "Over-communicating — 'I think maybe one guy near the box thing' wastes time",
       "Not calling when YOU die — your death info is valuable",
       "Calling 'They're rotating' without count or direction",
-      "Only learning your main map — you'll queue others eventually"
+      "Only learning your main map — you'll queue others eventually",
+      "Spending time learning callouts for maps not in Competitive (e.g., Breeze, Icebox) if you only play ranked"
     ],
     drills: [
-      "Exercise: Load each map in custom, walk and say every callout aloud",
+      "Exercise: Load each COMPETITIVE map in custom, walk and say every callout aloud",
       "Practice: Watch pro match with map overlay, repeat their calls",
       "Drill: Queue with 5-stack, enforce 'callout only' comms for 5 games"
     ]
@@ -1134,32 +1138,233 @@ const featuredGuidesData = {
     title: "Team Compositions",
     tag: "Strategy",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    overview: "Team composition (comp) determines how you play the map, execute sites, and win rounds. A balanced comp covers all roles: Entry (Duelist), Info/Setup (Initiator), Vision/Pace (Controller), Anchor (Sentinel). Meta comps shift each patch, but fundamentals remain: synergy > individual picks.",
+    overview: "Team composition (comp) determines how you play the map, execute sites, and win rounds. A balanced comp covers all roles: Entry (Duelist), Info/Setup (Initiator), Vision/Pace (Controller), Anchor (Sentinel). Meta comps shift each patch, but fundamentals remain: synergy > individual picks. As of Patch 13.10, the Competitive 7-map pool is: Abyss, Bind, Corrode, Haven, Lotus, Summit, Sunset.",
     concepts: [
       "Standard Comp — 1 Duelist, 1 Initiator, 1 Controller, 1 Sentinel, 1 Flex",
-      "Double Controller — Viper + Omen/Astra/Harbor (Split, Bind, Pearl)",
-      "Double Initiator — Sova + Skye/KAY/O/Fade (Ascent, Haven, Lotus)",
+      "Double Controller — Viper + Omen/Astra/Harbor (Bind, Corrode, Haven, Lotus, Summit, Sunset, Abyss)",
+      "Double Initiator — Sova + Skye/KAY/O/Fade (Haven, Lotus, Abyss, Sunset)",
       "No Duelist — Controller/Initiator entry (rare, requires coordination)",
-      "Map-Specific — Bind: Double Controller; Ascent: Double Initiator; Icebox: Viper mandatory"
+      "Map-Specific — Bind: Double Controller (smoke-heavy site executes); Corrode: Double Controller (3-lane control); Haven: 3-site execute split; Lotus/Sunset/Abyss: Mid control specialists with wall/utility agents",
+      "Wall/Droppable Map comps — Summit: Viper/Omen for wall drops; Abyss: Sova for vertical info"
     ],
     tips: [
-      "Pick for MAP, not just comfort — Viper on Breeze, Neon on Fracture",
-      "Flex slot adapts: 2nd Controller (smoke-heavy), 2nd Initiator (info-heavy), 2nd Duelist (aggro)",
-      "Agent synergy: Sova + Shock Bolt agents, Skye + Flash followers, Viper + Post-plant agents",
-      "Economy synergy: Agents with cheap utility (Brimstone, Cypher) enable team eco rounds",
-      "Comfort > Meta in solo queue — play what you know, not what pros play"
+      "Pick for MAP, not just comfort — Viper on Bind/Corrode/Summit; Omen/Astra on Lotus/Sunset; Sova on Haven/Abyss; Neon on Sunset",
+      "Flex slot adapts: 2nd Controller (smoke-heavy for current pool); 2nd Initiator (info-heavy); 2nd Duelist (aggro-oriented for 7-map pool)",
+      "Agent synergy: Sova + shock bolt agents for current pool; Skye + flash followers; Viper + post-plant agents for 3-site executes (Haven)",
+      "Economy synergy: Agents with cheap utility (Brimstone, Cypher) enable team eco rounds; Clove for post-death value",
+      "Comfort > Meta in solo queue — play what you know, not what pros play, but learn the 7-current map comps"
     ],
     mistakes: [
-      "4 Duelists + 1 Controller — no info, no anchor, no post-plant",
-      "No Controller on smoke-heavy maps (Bind, Split, Pearl)",
-      "Double Sentinel on attack — wastes flank watch utility",
-      "Picking 'meta' agents you can't play — 30% winrate Jett < 55% winrate Reyna",
-      "Ignoring enemy comp — adapt your playstyle to counter their weaknesses"
+      "4 Duelists + 1 Controller — no info, no anchor, no post-plant on 7-map pool",
+      "No Controller on smoke-heavy maps (Bind/Corrode) — you'll lose site executes",
+      "Double Sentinel on attack — wastes flank watch utility with only 7 maps",
+      "Picking 'meta' agents you can't play — learn 2-3 agents per role for the current pool",
+      "Ignoring enemy comp — adapt your playstyle to counter the 7-map pool weaknesses"
     ],
     drills: [
-      "Exercise: For each map, write your ideal 5-agent comp and why",
-      "Practice: 5-stack scrims testing specific comps vs standard",
-      "Study: Pro team comps per map per patch (vlr.gg stats)"
+      "Exercise: For each of the 7 competitive maps, write your ideal 5-agent comp and why",
+      "Practice: 5-stack scrims testing specific comps vs standard on each map",
+      "Study: Pro team comps per map per patch (vlr.gg stats) — focus on current 7-map pool"
+    ]
+  }
+};
+
+// ====== MAP GUIDES DATA ======
+// Map data structure: tactical = top-down tactical map, minimap = in-game minimap (upper left)
+// Updated for VALORANT Patch 13.10 (November 10, 2026)
+// Competitive: 7-map rotation | Unrated: All 13 standard maps | Swiftplay: All 13 standard maps | Premier: Same as Competitive
+const mapGuidesData = {
+  "ascent": {
+    name: "Ascent",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation (Patch 13.08), available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Ascent.webp",
+    minimapImage: "maps/Ascent_minimap.webp",
+    callouts: ["A Main", "A Heaven", "A Site", "B Main", "B Heaven", "B Site", "Mid", "Market", "CT", "Tree", "Catwalk", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Control Mid for map control and access to both sites",
+      "A Heaven provides strong post-plant angles on A Site",
+      "B Main is a common execute route — watch for utility",
+      "Market offers flanking opportunities for both sides",
+      "Tree is a key one-way smoke spot for defenders",
+      "Destructible site doors can seal off sites until destroyed"
+    ]
+  },
+  "bind": {
+    name: "Bind",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"], // Deathmatch uses Competitive pool
+    tacticalImage: "maps/Loading_Screen_Bind.webp",
+    minimapImage: "maps/Bind_minimap.webp",
+    callouts: ["A Site", "A Short", "A Long", "A Bath", "Showers", "B Site", "B Long", "B Short", "Hookah", "Lobby", "TP (Teleporter)", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Teleporters enable fast rotations — track enemy usage",
+      "Hookah is a critical control point for B Site access",
+      "Showers provides vertical play on A Site",
+      "A Bath is a common post-plant hide spot",
+      "Double controller (Viper + Omen) is meta on Bind",
+      "No conventional Mid lane — attackers choose between two main sides"
+    ]
+  },
+  "haven": {
+    name: "Haven",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"],
+    tacticalImage: "maps/Loading_Screen_Haven.webp",
+    minimapImage: "maps/Haven_minimap.webp",
+    callouts: ["A Site", "A Short", "A Long", "A Lobby", "C Site", "C Long", "C Short", "Garage", "B Site", "B Window", "B Back", "Mid", "Attacker Spawn", "Defender Spawn"],
+    tips: [
+      "Three sites = thinner defenses, exploit gaps",
+      "Mid control is crucial for accessing all three sites",
+      "C Long favors long-range weapons (Operator, Guardian)",
+      "Garage provides quick rotation between C and Mid",
+      "A Lobby is a common defender hold angle",
+      "Only three-site map in Competitive — rotations and info management are key"
+    ]
+  },
+  "split": {
+    name: "Split",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation (Patch 13.08), available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Split.webp",
+    minimapImage: "maps/Split_minimap.webp",
+    callouts: ["A Site", "A Main", "A Ramp", "A Heaven", "B Site", "B Main", "B Heaven", "Mid", "Vents", "Rafters", "Mail", "CT", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Verticality is key — control Heaven/Rafters",
+      "Vents enable fast B rotations but are risky",
+      "A Ramp is a choke point — utility heavy",
+      "Mid Mail gives info on defender rotations",
+      "Raze/Jett excel with vertical mobility",
+      "Rope ascenders connect levels; each site has a prominent tower"
+    ]
+  },
+  "icebox": {
+    name: "Icebox",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation, available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Icebox.webp",
+    minimapImage: "maps/Icebox_minimap.webp",
+    callouts: ["A Site", "A Main", "A Yellow", "A Green", "B Site", "B Main", "B Yellow", "B Kitchen", "Mid", "Top Mid", "Snowman", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Viper is near-mandatory for site control",
+      "Horizontal ziplines enable fast vertical movement",
+      "Kitchen is a strong post-plant position on B",
+      "Yellow containers provide cover for plants",
+      "Top Mid control dictates attacker pace",
+      "Vertical, close-angle-heavy arctic map with ziplines and layered positions"
+    ]
+  },
+  "breeze": {
+    name: "Breeze",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation (Patch 13.04), available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Breeze.webp",
+    minimapImage: "maps/Breeze_minimap.webp",
+    callouts: ["A Site", "A Main", "A Hall", "A Pyramids", "B Site", "B Main", "B Hall", "B Back", "Mid", "Mid Doors", "Cubby", "Nest", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Large map — long-range weapons (Operator, Marshal) shine",
+      "Mid Doors control is essential for map presence",
+      "Pyramids/Nest offer unique post-plant angles",
+      "A Hall is a common execute choke",
+      "Double controller (Viper + Astra/Omen) recommended",
+      "Wide open spaces and long sightlines — flank awareness essential"
+    ]
+  },
+  "fracture": {
+    name: "Fracture",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation (Patch 13.00), available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Fracture.webp",
+    minimapImage: "maps/Fracture_minimap.webp",
+    callouts: ["A Site", "A Main", "A Rope", "A Arcade", "B Site", "B Main", "B Rope", "B Arcade", "Mid", "Mid Arcade", "Dish", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Defenders spawn in middle — unique rotation dynamics",
+      "Ropes enable fast vertical movement between levels",
+      "Arcade is a key control area for both sites",
+      "Dish provides long sightlines across Mid",
+      "Neon/Jett excel with rope mobility",
+      "Split-spawn layout with unusual pressure from multiple directions"
+    ]
+  },
+  "pearl": {
+    name: "Pearl",
+    modes: ["unrated", "swiftplay"], // Out of Competitive rotation (Patch 13.00), available in Unrated/Swiftplay
+    tacticalImage: "maps/Loading_Screen_Pearl.webp",
+    minimapImage: "maps/Pearl_minimap.webp",
+    callouts: ["A Site", "A Main", "A Art", "A Secret", "B Site", "B Main", "B Link", "B Tower", "Mid", "Mid Top", "Mid Connector", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "No verticality — pure horizontal map control",
+      "Art is a critical choke for A Site access",
+      "Mid Top control enables splits onto both sites",
+      "B Tower offers high ground for defenders",
+      "Controller utility essential for site executes",
+      "Traditional two-site map with compact Mid and longer side lanes; no special mechanics"
+    ]
+  },
+  "corrode": {
+    name: "Corrode",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"], // Added in Patch 13.08; Deathmatch uses Competitive pool
+    tacticalImage: "maps/Loading_Screen_Corrode.webp",
+    minimapImage: "maps/Corrode_minimap.webp",
+    callouts: ["A Site", "A Main", "A Lobby", "A Sewer", "B Site", "B Main", "B Courtyard", "B Back", "Mid", "Mid Courtyard", "Lower Mid", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Traditional three-lane layout with medieval streets and industrial machinery",
+      "Patch 13.08 adjusted defender paths, Mid cover, and A-site plant zone",
+      "Layered defenses and meaningful Mid routes",
+      "A Site plant zone updated — learn new post-plant positions",
+      "Double controller (Viper + Omen/Astra) recommended for site control"
+    ]
+  },
+  "lotus": {
+    name: "Lotus",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"],
+    tacticalImage: "maps/Loading_Screen_Lotus.webp",
+    minimapImage: "maps/Lotus_minimap.webp",
+    callouts: ["A Site", "A Main", "A Tree", "A Stairs", "B Site", "B Main", "B Upper", "B Lower", "C Site", "C Main", "C Waterfall", "Mid", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Three sites with rotating doors — unique mechanic",
+      "Door control dictates rotation speed",
+      "Waterfall on C provides vertical play",
+      "A Tree is a key defender angle",
+      "Harbor/Viper strong for door control",
+      "Three-site map with interactive stone doors and flexible rotations"
+    ]
+  },
+  "summit": {
+    name: "Summit",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"], // Added in Patch 13.00; Deathmatch uses Competitive pool
+    tacticalImage: "maps/Loading_Screen_Summit.webp",
+    minimapImage: "maps/Summit_minimap.webp",
+    callouts: ["A Site", "A Main", "A Academy", "A Tower", "B Site", "B Main", "B Courtyard", "B Tower", "Mid", "Mid Top", "Mid Bottom", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Three lanes and massive droppable walls — walls can be lowered to change battlefield layout",
+      "Wall drops require teams to adapt routes and plans mid-round",
+      "Radiant training academy setting in the mountains of China",
+      "Control Mid for access to both sites and wall switches",
+      "Viper/Omen strong for wall control and post-plant"
+    ]
+  },
+  "sunset": {
+    name: "Sunset",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"],
+    tacticalImage: "maps/Loading_Screen_Sunset.webp",
+    minimapImage: "maps/Sunset_minimap.webp",
+    callouts: ["A Site", "A Main", "A Alley", "A Boots", "B Site", "B Main", "B Market", "B Elbow", "Mid", "Mid Top", "Mid Bottom", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Two sites but large Mid area — Mid control vital",
+      "A Boots/Alley provide alternative A entries",
+      "B Market is a complex close-quarters area",
+      "Mid Top/Bottom offer different engagement ranges",
+      "Good for both coordinated and solo queue play",
+      "Traditional three-lane urban map with Mid control and site-lane pressure"
+    ]
+  },
+  "abyss": {
+    name: "Abyss",
+    modes: ["competitive", "premier", "deathmatch", "unrated", "swiftplay"], // Added in Patch 13.04; Deathmatch uses Competitive pool
+    tacticalImage: "maps/Loading_Screen_Abyss.webp",
+    minimapImage: "maps/Abyss_minimap.webp",
+    callouts: ["A Site", "A Main", "A Maw", "A Spawn", "B Site", "B Main", "B Nest", "B Tower", "Mid", "Mid Top", "Mid Bottom", "Defender Spawn", "Attacker Spawn"],
+    tips: [
+      "Newest map — meta still developing",
+      "Vertical layering with drop-downs and climb-ups",
+      "A Maw provides unique vertical entry",
+      "B Tower offers strong defensive positioning",
+      "Mid control splits map into two halves",
+      "Open edges and death drops create unusual risks — positioning near edges matters"
     ]
   }
 };
@@ -1170,6 +1375,10 @@ let filterBtns = null;
 let roleGuideModal = null;
 let agentGuideModal = null;
 let featuredGuideModal = null;
+let mapGuideModal = null;
+let mapGuidesGrid = null;
+let mapFilterBtns = null;
+let mapModalClose = null;
 let roleModalClose = null;
 let agentModalClose = null;
 let featuredModalClose = null;
@@ -1261,6 +1470,127 @@ function updateFilterButtonState(filter) {
       btn.style.setProperty("--fill-origin", direction === "left" ? "left" : "right");
     } else {
       btn.style.setProperty("--fill-origin", direction === "left" ? "right" : "left");
+    }
+  });
+}
+
+// ====== RENDER MAP CARDS ======
+let currentMapFilter = "all";
+
+function createMapCard(id, map, index = 0) {
+  const card = document.createElement("article");
+  card.className = "map-guide-card";
+  card.dataset.mapId = id;
+  card.dataset.mapModes = map.modes.join(",");
+  card.tabIndex = 0;
+  card.role = "listitem";
+  card.style.setProperty("--card-index", index);
+
+  const modeTags = map.modes.map(m => `<span class="map-mode-tag">${m.charAt(0).toUpperCase() + m.slice(1)}</span>`).join("");
+
+  card.innerHTML = `
+    <div class="map-guide-card-thumb">
+      <img src="${map.tacticalImage}" alt="${map.name} tactical map" loading="lazy">
+    </div>
+    <div class="map-guide-card-body">
+      <h4 class="map-guide-card-name">${map.name}</h4>
+      <div class="map-guide-card-modes">${modeTags}</div>
+      <span class="map-guide-card-arrow" aria-hidden="true">›</span>
+    </div>
+  `;
+
+  card.addEventListener("click", () => openMapGuideModal(id));
+  card.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openMapGuideModal(id);
+    }
+  });
+
+  return card;
+}
+
+function renderMaps(filter = "all") {
+  if (!mapGuidesGrid) return;
+
+  currentMapFilter = filter;
+  mapGuidesGrid.innerHTML = "";
+
+  Object.entries(mapGuidesData).forEach(([id, map]) => {
+    const matches = filter === "all" || map.modes.includes(filter);
+    if (!matches) return;
+
+    const card = createMapCard(id, map);
+    mapGuidesGrid.appendChild(card);
+  });
+}
+
+// ====== MAP FILTER HANDLING ======
+function initMapFilterHandlers() {
+  mapFilterBtns?.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filterOrder = ["all", "competitive", "premier", "unrated", "deathmatch", "swiftplay"];
+      const prevIndex = filterOrder.indexOf(currentMapFilter);
+      const newIndex = filterOrder.indexOf(btn.dataset.filter);
+      const direction = newIndex > prevIndex ? "left" : "right";
+
+      mapFilterBtns.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+
+      mapFilterBtns.forEach(b => {
+        const isActive = b === btn;
+        b.style.setProperty("--fill-origin", isActive
+          ? (direction === "left" ? "left" : "right")
+          : (direction === "left" ? "right" : "left"));
+      });
+
+      renderMaps(btn.dataset.filter);
+    });
+  });
+}
+
+// ====== MAP TAB HANDLING (Tactical / Minimap) ======
+function initMapTabHandlers() {
+  const tabs = document.querySelectorAll(".map-image-tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => switchMapView(tab.dataset.view));
+    tab.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        switchMapView(tab.dataset.view);
+      }
+    });
+  });
+}
+
+// ====== MODAL CLOSE HANDLERS (updated to include map modal) ======
+function initModalCloseHandlers() {
+  roleModalClose?.addEventListener("click", closeRoleGuideModal);
+  agentModalClose?.addEventListener("click", closeAgentGuideModal);
+  featuredModalClose?.addEventListener("click", closeFeaturedGuideModal);
+  mapModalClose?.addEventListener("click", closeMapGuideModal);
+
+  [roleGuideModal, agentGuideModal, featuredGuideModal, mapGuideModal].forEach(modal => {
+    modal?.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        if (modal === roleGuideModal) closeRoleGuideModal();
+        else if (modal === agentGuideModal) closeAgentGuideModal();
+        else if (modal === featuredGuideModal) closeFeaturedGuideModal();
+        else closeMapGuideModal();
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (roleGuideModal?.classList.contains("open")) closeRoleGuideModal();
+      if (agentGuideModal?.classList.contains("open")) closeAgentGuideModal();
+      if (featuredGuideModal?.classList.contains("open")) closeFeaturedGuideModal();
+      if (mapGuideModal?.classList.contains("open")) closeMapGuideModal();
     }
   });
 }
@@ -1471,30 +1801,6 @@ function initFeaturedGuideHandlers() {
   });
 }
 
-// ====== MODAL CLOSE EVENTS ======
-function initModalCloseHandlers() {
-  roleModalClose?.addEventListener("click", closeRoleGuideModal);
-  agentModalClose?.addEventListener("click", closeAgentGuideModal);
-  featuredModalClose?.addEventListener("click", closeFeaturedGuideModal);
-
-  [roleGuideModal, agentGuideModal, featuredGuideModal].forEach(modal => {
-    modal?.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        if (modal === roleGuideModal) closeRoleGuideModal();
-        else if (modal === agentGuideModal) closeAgentGuideModal();
-        else closeFeaturedGuideModal();
-      }
-    });
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (roleGuideModal?.classList.contains("open")) closeRoleGuideModal();
-      if (agentGuideModal?.classList.contains("open")) closeAgentGuideModal();
-      if (featuredGuideModal?.classList.contains("open")) closeFeaturedGuideModal();
-    }
-  });
-}
 
 // ====== FEATURED GUIDE MODAL ======
 function openFeaturedGuideModal(guideId) {
@@ -1526,21 +1832,89 @@ function closeFeaturedGuideModal() {
   document.body.style.overflow = "";
 }
 
+// ====== MAP GUIDE MODAL ======
+let currentMapView = "tactical";
+
+function openMapGuideModal(mapId) {
+  const map = mapGuidesData[mapId];
+  if (!map) return;
+
+  currentMapView = "tactical";
+
+  // Header
+  document.getElementById("map-modal-title").textContent = map.name;
+  document.getElementById("map-modal-modes").textContent = map.modes.map(m => m.charAt(0).toUpperCase() + m.slice(1)).join("  •  ");
+
+  // Set initial image (tactical)
+  const modalImg = document.getElementById("map-modal-img");
+  modalImg.src = map.tacticalImage;
+  modalImg.alt = `${map.name} tactical map`;
+
+  // Callouts
+  document.getElementById("map-callouts").innerHTML = map.callouts.map(c => `<span class="map-callout-tag">${c}</span>`).join("");
+
+  // Tips
+  document.getElementById("map-tips").innerHTML = map.tips.map(t => `<li>${t}</li>`).join("");
+
+  // Reset tab states
+  document.querySelectorAll(".map-image-tab").forEach(tab => {
+    tab.classList.remove("active");
+    tab.setAttribute("aria-selected", "false");
+  });
+  document.querySelector('.map-image-tab[data-view="tactical"]').classList.add("active");
+  document.querySelector('.map-image-tab[data-view="tactical"]').setAttribute("aria-selected", "true");
+
+  mapGuideModal.classList.add("open");
+  mapGuideModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  mapModalClose.focus();
+}
+
+function closeMapGuideModal() {
+  mapGuideModal.classList.remove("open");
+  mapGuideModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function switchMapView(view) {
+  const map = mapGuidesData[Object.keys(mapGuidesData).find(id => mapGuidesData[id].name === document.getElementById("map-modal-title").textContent)];
+  if (!map) return;
+
+  currentMapView = view;
+  const modalImg = document.getElementById("map-modal-img");
+  modalImg.src = view === "tactical" ? map.tacticalImage : map.minimapImage;
+  modalImg.alt = `${map.name} ${view === "tactical" ? "tactical map" : "in-game minimap"}`;
+
+  // Update tab states
+  document.querySelectorAll(".map-image-tab").forEach(tab => {
+    const isActive = tab.dataset.view === view;
+    tab.classList.toggle("active", isActive);
+    tab.setAttribute("aria-selected", isActive);
+  });
+}
+
 // ====== INITIALIZE ======
 document.addEventListener("DOMContentLoaded", () => {
   // Cache DOM elements after they exist
   agentGuidesGrid = document.getElementById("agent-guides-grid");
-  filterBtns = document.querySelectorAll(".filter-btn");
+  filterBtns = document.querySelectorAll("#agent-guides .filter-btn");
   roleGuideModal = document.getElementById("role-guide-modal");
   agentGuideModal = document.getElementById("agent-guide-modal");
   featuredGuideModal = document.getElementById("featured-guide-modal");
+  mapGuideModal = document.getElementById("map-guide-modal");
+  mapGuidesGrid = document.getElementById("maps-grid");
+  mapFilterBtns = document.querySelectorAll("#map-guides .filter-btn");
   roleModalClose = roleGuideModal?.querySelector(".guide-modal-close");
   agentModalClose = agentGuideModal?.querySelector(".guide-modal-close");
   featuredModalClose = featuredGuideModal?.querySelector(".guide-modal-close");
+  mapModalClose = mapGuideModal?.querySelector(".guide-modal-close");
 
   renderAgentGuides("all");
+  renderMaps("all");
   initRoleCardHandlers();
   initFilterHandlers();
   initFeaturedGuideHandlers();
+  initMapFilterHandlers();
+  initMapTabHandlers();
   initModalCloseHandlers();
 });

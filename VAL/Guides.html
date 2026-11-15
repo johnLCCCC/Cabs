@@ -152,6 +152,27 @@
     </div>
   </section>
 
+  <!-- Map Guides Section -->
+  <section id="map-guides" class="section-band map-guides-band scroll-reveal">
+    <div class="section-inner">
+      <div class="guides-header">
+        <h2>MAP GUIDES</h2>
+        <p class="section__text__p2">Current map pool with tactical layouts and in-game minimaps for every competitive map.</p>
+      </div>
+      <div class="guides-filter" role="tablist" aria-label="Filter by game mode">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" aria-controls="maps-grid">All Maps</button>
+        <button class="filter-btn" data-filter="competitive" role="tab" aria-selected="false">Competitive</button>
+        <button class="filter-btn" data-filter="premier" role="tab" aria-selected="false">Premier</button>
+        <button class="filter-btn" data-filter="unrated" role="tab" aria-selected="false">Unrated</button>
+        <button class="filter-btn" data-filter="deathmatch" role="tab" aria-selected="false">Deathmatch</button>
+        <button class="filter-btn" data-filter="swiftplay" role="tab" aria-selected="false">Swiftplay</button>
+      </div>
+      <div id="maps-grid" class="maps-grid" role="list" aria-label="Map Guides">
+        <!-- Map cards will be rendered by JavaScript -->
+      </div>
+    </div>
+  </section>
+
   <!-- Featured Guides Section -->
   <section class="section-band featured-guides-band scroll-reveal">
     <div class="section-inner">
@@ -309,6 +330,37 @@
       <section class="guide-modal-section">
         <h3>Practice Drills</h3>
         <ul id="featured-drills"></ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Map Guide Modal -->
+<div id="map-guide-modal" class="guide-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="map-modal-title">
+  <div class="guide-modal-content map-guide-modal-content">
+    <button class="guide-modal-close" aria-label="Close modal">&times;</button>
+    <div class="map-guide-modal-header">
+      <div class="map-guide-modal-info">
+        <h2 id="map-modal-title" class="guide-modal-title"></h2>
+        <p id="map-modal-modes" class="guide-modal-subtitle"></p>
+      </div>
+    </div>
+    <div class="guide-modal-body">
+      <!-- Map Image Tabs -->
+      <div class="map-image-tabs" role="tablist" aria-label="Map view">
+        <button class="map-image-tab active" data-view="tactical" role="tab" aria-selected="true" aria-controls="map-image-panel">Tactical Map</button>
+        <button class="map-image-tab" data-view="minimap" role="tab" aria-selected="false" aria-controls="map-image-panel">In-Game Minimap</button>
+      </div>
+      <div id="map-image-panel" class="map-image-panel" role="tabpanel">
+        <img id="map-modal-img" src="" alt="" class="map-modal-image">
+      </div>
+      <section class="guide-modal-section">
+        <h3>Callouts</h3>
+        <div id="map-callouts" class="map-callouts-grid"></div>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Key Tips</h3>
+        <ul id="map-tips"></ul>
       </section>
     </div>
   </div>

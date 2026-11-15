@@ -137,6 +137,60 @@
         ],
         "createdAt": "2026-11-15T04:52:10.427Z",
         "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/Guides.html"
+        ],
+        "createdAt": "2026-11-15T05:13:17.008Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/index.html"
+        ],
+        "createdAt": "2026-11-15T05:13:29.380Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/Meta.html"
+        ],
+        "createdAt": "2026-11-15T05:13:44.837Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/Shop.html"
+        ],
+        "createdAt": "2026-11-15T05:13:44.979Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/Weapons.html"
+        ],
+        "createdAt": "2026-11-15T05:13:45.106Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "VAL/About.html"
+        ],
+        "createdAt": "2026-11-15T05:13:45.231Z",
+        "reason": "Intentional Valorant brand crimson accent borders on cards - deliberate design choice matching game's visual identity"
       }
     ]
   }
