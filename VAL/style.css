@@ -308,6 +308,27 @@ ul { list-style: none; margin: 0; padding: 0; }
   .top-nav { padding: 0 16px; }
 }
 
+@media (max-width: 600px) {
+  .top-nav { padding: 0 12px; height: var(--nav-height-compact); }
+  .top-nav .logo { font-size: 18px; }
+  .top-nav .logo::before { height: 20px; }
+  .hamburger-icon { width: 24px; height: 18px; }
+  .hero-wash { padding: 40px 16px 30px; }
+  .hero-wash-inner { gap: 12px; }
+  .title { font-size: 28px; }
+  .section__text__p2 { font-size: 14px; }
+  .section-container { padding: 32px 12px; }
+  .tier-legend { flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .tier { padding: 3px 8px; font-size: 10px; }
+  .tier-text { font-size: 10px; }
+  .cards-grid { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 12px; }
+  .card .card-thumb img { width: 80px; height: 80px; }
+  .site-footer { padding: 24px 12px; }
+  .copyright { font-size: 12px; }
+  .disclaimer { font-size: 11px; }
+}
+
 /* ---- Welcome bar (logged-in user banner) ---- */
 .welcomeUser {
   display: none;

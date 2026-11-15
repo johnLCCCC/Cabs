@@ -345,13 +345,6 @@
   gap: var(--guides-gap);
   max-width: 1400px;
   margin: 0 auto;
-  /* Transition container for smooth filtering */
-  transition: opacity 200ms ease, min-height 300ms ease;
-}
-
-.agent-guides-grid.filtering {
-  opacity: 0.4;
-  pointer-events: none;
 }
 
 .agent-guide-card {
@@ -359,89 +352,16 @@
   border: 1px solid rgba(255,255,255,0.04);
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, opacity 300ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  /* Animation state */
-  opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 .agent-guide-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 32px rgba(0,0,0,0.35);
   border-color: rgba(220, 20, 60, 0.15);
-}
-
-/* ============================================================
-   FILTER TRANSITION ANIMATIONS (Cross-Fade + Stagger)
-   ============================================================ */
-
-/* Container state during filter */
-.agent-guides-grid.filtering {
-  opacity: 0.35;
-  pointer-events: none;
-  transition: opacity 150ms ease;
-}
-
-/* Base card transition for filter animations */
-.agent-guide-card {
-  transition: opacity 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
-              transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-/* Exit animation - cards leaving */
-.agent-guide-card.exiting {
-  opacity: 0;
-  transform: translateY(-14px) scale(0.94);
-  pointer-events: none;
-  transition: opacity 250ms ease-out, transform 250ms ease-out;
-}
-
-/* Enter animation - cards arriving (initial state) */
-.agent-guide-card.entering {
-  opacity: 0;
-  transform: translateY(18px) scale(0.94);
-  pointer-events: none;
-  /* Animation triggered by JS removing .entering and adding .animate-in */
-  transition: opacity 380ms cubic-bezier(0.22, 0.61, 0.36, 1),
-              transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  transition-delay: var(--stagger-delay, 0ms);
-}
-
-/* Enter animation - active state (applied by JS after reflow) */
-.agent-guide-card.animate-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .agent-guides-grid {
-    transition: none;
-  }
-  .agent-guides-grid.filtering {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .agent-guide-card {
-    transition: none;
-  }
-  .agent-guide-card.exiting {
-    display: none;
-  }
-  .agent-guide-card.entering {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-  .agent-guide-card.animate-in {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .agent-guide-card:focus-visible {
@@ -653,5 +573,36 @@
 
   .agent-guides-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .guides-filter {
+    gap: 6px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guides-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filter-btn {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+  .agent-guides-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .agent-guide-card-thumb img {
+    aspect-ratio: 1;
   }
 }

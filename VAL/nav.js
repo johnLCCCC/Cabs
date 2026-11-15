@@ -138,6 +138,25 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
+  // Close slider when clicking outside (on backdrop)
+  document.addEventListener('click', function(e) {
+    if (!sliderMenu?.classList.contains('open')) return;
+    // Ignore clicks on the menu itself, the hamburger button, or the close button
+    if (sliderMenu.contains(e.target)) return;
+    if (arrowMenuBtn?.contains(e.target)) return;
+    if (closeSlider?.contains(e.target)) return;
+
+    // Click was outside - close the menu
+    sliderMenu.classList.remove('open');
+    arrowMenuBtn?.classList.remove('open');
+    closeSlider?.classList.remove('open');
+    arrowMenuBtn?.setAttribute('aria-expanded', 'false');
+    sliderMenu?.setAttribute('aria-hidden', 'true');
+    if(sliderMenu._removeTrap) { sliderMenu._removeTrap(); sliderMenu._removeTrap = null; }
+    if(previousFocus && previousFocus.focus) previousFocus.focus();
+    document.body.style.overflow = '';
+  });
+
   // set active nav link based on current URL
   const currentPage = window.location.pathname.split('/').pop().toLowerCase();
   let activeSet = false;

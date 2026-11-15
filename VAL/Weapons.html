@@ -138,18 +138,111 @@
     const modal = document.getElementById('weapon-detail-modal');
     const closeModalBtn = document.getElementById('close-weapon-modal');
 
+    // ====== TYPEWRITER ANIMATION (matches Agent Guides modal) ======
+    function playTypeSound() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        const ctx = new AudioContextClass();
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        oscillator.frequency.value = 1200;
+        oscillator.type = "sine";
+        gainNode.gain.value = 0.02;
+        oscillator.start();
+        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+        oscillator.stop(ctx.currentTime + 0.05);
+      } catch (e) {
+        // Audio not supported or blocked - silently ignore
+      }
+    }
+
+    // Timer refs for cancellation
+    const descTypewriterTimer = { current: null };
+    const tipsTypewriterTimer = { current: null };
+
+    function startTypewriterWithSound(element, text, speed, timerRef) {
+      return new Promise(resolve => {
+        element.textContent = "";
+        element.style.width = "0";
+        element.classList.add("typing");
+
+        let i = 0;
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            if (text.charAt(i) !== " ") playTypeSound();
+            i++;
+          } else {
+            clearInterval(timer);
+            element.classList.remove("typing");
+            element.classList.add("typing-done");
+            element.style.width = "auto";
+            element.style.borderRight = "none";
+            if (timerRef && timerRef.current === timer) {
+              timerRef.current = null;
+            }
+            resolve();
+          }
+        }, speed);
+
+        if (timerRef) {
+          timerRef.current = timer;
+        }
+      });
+    }
+
+    function resetTypewriterAnimations() {
+      if (descTypewriterTimer.current) {
+        clearInterval(descTypewriterTimer.current);
+        descTypewriterTimer.current = null;
+      }
+      if (tipsTypewriterTimer.current) {
+        clearInterval(tipsTypewriterTimer.current);
+        tipsTypewriterTimer.current = null;
+      }
+      const descEl = document.getElementById('weapon-modal-desc');
+      const tipsEl = document.getElementById('weapon-modal-tips');
+      [descEl, tipsEl].forEach(el => {
+        if (el) {
+          el.classList.remove("typing", "typing-done");
+          el.style.width = "auto";
+          el.style.borderRight = "none";
+        }
+      });
+    }
+
     function openWeaponModal(w) {
       document.getElementById('weapon-modal-img').src = w.img;
       document.getElementById('weapon-modal-img').alt = `${w.name} render`;
       document.getElementById('weapon-modal-title').textContent = w.name;
       document.getElementById('weapon-modal-category').textContent = w.category;
       document.getElementById('weapon-modal-cost').textContent = `🪙 ${w.cost}`;
-      document.getElementById('weapon-modal-desc').textContent = w.desc;
       document.getElementById('weapon-modal-firerate').textContent = w.fireRate;
       document.getElementById('weapon-modal-mag').textContent = w.magazine;
       document.getElementById('weapon-modal-pen').textContent = w.wallPenetration;
       document.getElementById('weapon-modal-damage').textContent = w.damage;
-      document.getElementById('weapon-modal-tips').textContent = w.tips;
+
+      // Reset any previous typewriter animations
+      resetTypewriterAnimations();
+
+      // Overview with typewriter
+      const descEl = document.getElementById('weapon-modal-desc');
+      descEl.textContent = "";
+      const descPromise = startTypewriterWithSound(descEl, w.desc, 15, descTypewriterTimer);
+
+      // Tactical Tips with typewriter (starts after overview)
+      const tipsEl = document.getElementById('weapon-modal-tips');
+      tipsEl.textContent = "";
+      // Chain after overview completes
+      descPromise.then(() => {
+        setTimeout(() => {
+          startTypewriterWithSound(tipsEl, w.tips, 15, tipsTypewriterTimer);
+        }, 200);
+      });
 
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
@@ -157,6 +250,7 @@
     }
 
     function closeWeaponModal() {
+      resetTypewriterAnimations();
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';

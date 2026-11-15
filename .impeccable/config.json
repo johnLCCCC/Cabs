@@ -83,6 +83,60 @@
         ],
         "createdAt": "2026-11-14T11:33:33.499Z",
         "reason": "Intentional Valorant brand crimson glow on active states - consistent with game's visual identity"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/Weapons.html"
+        ],
+        "createdAt": "2026-11-15T04:50:21.598Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/Meta.html"
+        ],
+        "createdAt": "2026-11-15T04:50:26.392Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/index.html"
+        ],
+        "createdAt": "2026-11-15T04:50:57.511Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/Shop.html"
+        ],
+        "createdAt": "2026-11-15T04:51:42.067Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/Guides.html"
+        ],
+        "createdAt": "2026-11-15T04:51:59.520Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "VAL/About.html"
+        ],
+        "createdAt": "2026-11-15T04:52:10.427Z",
+        "reason": "Legal disclaimer/footer smallprint - sanctioned exception per rule"
       }
     ]
   }

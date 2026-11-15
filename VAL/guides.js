@@ -1182,8 +1182,7 @@ const playstyleTypewriterTimer = { current: null };
 
 // ====== RENDER AGENT GUIDE CARDS ======
 let currentFilter = "all";
-let previousFilter = "all";
-let isFiltering = false;
+let previousFilter = "all"; // Kept for fill-origin direction calculation
 
 function createAgentCard(id, agent, index = 0) {
   const card = document.createElement("article");
@@ -1228,184 +1227,29 @@ function createAgentCard(id, agent, index = 0) {
 function renderAgentGuides(filter = "all") {
   if (!agentGuidesGrid) return;
 
-  // Safety: if stuck filtering for too long, force reset
-  if (isFiltering) {
-    console.warn("[Guides] Filter stuck, forcing reset");
-    forceFilterReset();
-    // After reset, re-run with new filter
-    if (filter !== currentFilter) {
-      setTimeout(() => renderAgentGuides(filter), 0);
-    }
-    return;
-  }
-
-  // Track previous filter for directional fill animation
-  if (filter !== currentFilter) {
-    previousFilter = currentFilter;
-  }
   currentFilter = filter;
 
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const newFilter = filter;
-  const cards = Array.from(agentGuidesGrid.children);
-  const currentCards = cards.filter(card => card.classList.contains("agent-guide-card"));
-
-  // Determine which cards stay, leave, and enter
-  const stayingCards = [];
-  const leavingCards = [];
-  const enteringData = [];
+  // Simple instant re-render (matches Weapons page behavior)
+  agentGuidesGrid.innerHTML = "";
 
   Object.entries(agentGuidesData).forEach(([id, agent]) => {
-    const matches = newFilter === "all" || agent.role === newFilter;
-    const existingCard = currentCards.find(c => c.dataset.agentId === id);
+    const matches = filter === "all" || agent.role === filter;
+    if (!matches) return;
 
-    if (matches && existingCard) {
-      stayingCards.push(existingCard);
-    } else if (!matches && existingCard) {
-      leavingCards.push(existingCard);
-    } else if (matches && !existingCard) {
-      enteringData.push({ id, agent });
-    }
+    const card = createAgentCard(id, agent);
+    agentGuidesGrid.appendChild(card);
   });
-
-  // If no changes, just update filter state
-  if (leavingCards.length === 0 && enteringData.length === 0) {
-    currentFilter = newFilter;
-    updateFilterButtonState(newFilter);
-    return;
-  }
-
-  isFiltering = true;
-  agentGuidesGrid.classList.add("filtering");
-
-  // Safety: force reset after max expected time + buffer
-  const safetyTimeout = setTimeout(() => {
-    if (isFiltering) {
-      console.warn("[Guides] Safety timeout triggered, forcing reset");
-      forceFilterReset();
-    }
-  }, 3000);
-
-  // ============================================================
-  // CROSS-FADE + STAGGER IMPLEMENTATION
-  // ============================================================
-
-  // Calculate stagger delays - reduced for snappier feel
-  const exitStaggerMs = 8;    // leaving cards: faster sweep
-  const enterStaggerMs = 18;  // entering cards: quicker settle
-
-  // Phase 1: Start exit animations immediately (overlapped with enter prep)
-  const exitPromises = leavingCards.map((card, i) => {
-    return new Promise(resolve => {
-      if (prefersReducedMotion) {
-        card.remove();
-        resolve();
-        return;
-      }
-
-      // Stagger the START of each exit
-      setTimeout(() => {
-        // Guard: card might already be removed
-        if (!card.parentElement) {
-          resolve();
-          return;
-        }
-
-        card.classList.add("exiting");
-
-        // Wait for transition to complete
-        const onTransitionEnd = (e) => {
-          // Only respond to our properties
-          if (e && e.propertyName !== "opacity" && e.propertyName !== "transform") return;
-
-          card.removeEventListener("transitionend", onTransitionEnd);
-          if (card.parentElement) card.remove();
-          resolve();
-        };
-        card.addEventListener("transitionend", onTransitionEnd, { once: true });
-
-        // Safety timeout in case transitionend doesn't fire
-        setTimeout(() => {
-          card.removeEventListener("transitionend", onTransitionEnd);
-          if (card.parentElement) card.remove();
-          resolve();
-        }, 400);
-      }, i * exitStaggerMs);
-    });
-  });
-
-  // Phase 2: Prepare entering cards (start after brief overlap)
-  // This creates the "cross-fade" - enter starts while exit still running
-  const enterDelay = Math.min(leavingCards.length * exitStaggerMs, 120);
-
-  setTimeout(() => {
-    // Create and append entering cards with initial state
-    const enteringCards = enteringData.map((data, i) => {
-      const card = createAgentCard(data.id, data.agent, i);
-      card.classList.add("entering");
-      // Set stagger delay via CSS custom property
-      card.style.setProperty("--stagger-delay", `${i * enterStaggerMs}ms`);
-      agentGuidesGrid.appendChild(card);
-      return card;
-    });
-
-    // Reorder ALL cards (staying + entering) to maintain data order
-    const allCards = [...stayingCards, ...enteringCards];
-    const sortedCards = [];
-    Object.keys(agentGuidesData).forEach(id => {
-      const card = allCards.find(c => c.dataset.agentId === id);
-      if (card && (newFilter === "all" || card.dataset.agentRole === newFilter)) {
-        sortedCards.push(card);
-      }
-    });
-
-    // Re-append in correct order (this is a no-op for layout, just DOM order)
-    sortedCards.forEach(card => agentGuidesGrid.appendChild(card));
-
-    // Phase 3: Trigger enter animations (double rAF for reliable reflow)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        enteringCards.forEach(card => {
-          if (card.parentElement) {
-            card.classList.remove("entering");
-            card.classList.add("animate-in");
-          }
-        });
-      });
-    });
-
-    // Phase 4: Cleanup after all animations complete
-    const maxExitTime = leavingCards.length * exitStaggerMs + 200;
-    const maxEnterTime = enterDelay + enteringCards.length * enterStaggerMs + 250;
-    const totalTime = Math.max(maxExitTime, maxEnterTime);
-
-    setTimeout(() => {
-      clearTimeout(safetyTimeout);
-      agentGuidesGrid.classList.remove("filtering");
-      isFiltering = false;
-      currentFilter = newFilter;
-      updateFilterButtonState(newFilter);
-    }, totalTime);
-
-  }, enterDelay);
 }
 
+// No longer needed - keeping for compatibility but does nothing
 function forceFilterReset() {
   if (!agentGuidesGrid) return;
-
-  // Remove all animation classes
-  agentGuidesGrid.querySelectorAll(".agent-guide-card").forEach(card => {
-    card.classList.remove("exiting", "entering", "animate-in");
-  });
-
-  // Re-render current filter from scratch
-  agentGuidesGrid.innerHTML = "";
   renderAgentGuides(currentFilter);
 }
 
 function updateFilterButtonState(filter) {
-  // Determine directional fill origin: "left" or "right"
-  // Based on filter order: all, duelist, initiator, controller, sentinel
+  // Only update fill-origin for directional fill animation on buttons
+  // Active class is already set immediately in initFilterHandlers
   const filterOrder = ["all", "duelist", "initiator", "controller", "sentinel"];
   const prevIndex = filterOrder.indexOf(previousFilter);
   const newIndex = filterOrder.indexOf(filter);
@@ -1413,15 +1257,9 @@ function updateFilterButtonState(filter) {
 
   filterBtns?.forEach(btn => {
     const isActive = btn.dataset.filter === filter;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-selected", isActive);
-
-    // Set fill origin for directional animation
-    // Active button expands FROM the direction of the previous filter
     if (isActive) {
       btn.style.setProperty("--fill-origin", direction === "left" ? "left" : "right");
     } else {
-      // Non-active buttons collapse TOWARD the new active button
       btn.style.setProperty("--fill-origin", direction === "left" ? "right" : "left");
     }
   });
@@ -1431,18 +1269,28 @@ function updateFilterButtonState(filter) {
 function initFilterHandlers() {
   filterBtns?.forEach(btn => {
     btn.addEventListener("click", () => {
-      // Pre-set the directional fill origin on the clicked button
-      // This ensures the animation starts correctly even before renderAgentGuides runs
       const filterOrder = ["all", "duelist", "initiator", "controller", "sentinel"];
       const prevIndex = filterOrder.indexOf(currentFilter);
       const newIndex = filterOrder.indexOf(btn.dataset.filter);
       const direction = newIndex > prevIndex ? "left" : "right";
 
-      // Set origin on the target button immediately for responsive feel
-      btn.style.setProperty("--fill-origin", direction === "left" ? "left" : "right");
+      // ---- INSTANT ACTIVE STATE (like Weapons page) ----
+      filterBtns.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
 
-      // Don't update button UI here - let renderAgentGuides handle it on success
-      // This prevents UI flicker when forceFilterReset reverts to currentFilter
+      // Set fill origin for animation direction (on ALL buttons)
+      filterBtns.forEach(b => {
+        const isActive = b === btn;
+        b.style.setProperty("--fill-origin", isActive
+          ? (direction === "left" ? "left" : "right")
+          : (direction === "left" ? "right" : "left"));
+      });
+
+      // Then render (triggers card cross-fade animation)
       renderAgentGuides(btn.dataset.filter);
     });
   });

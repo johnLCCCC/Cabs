@@ -80,10 +80,12 @@
 }
 
 /* ============================================================
-   TYPEWRITER ANIMATION STYLES (for agent passive & playstyle)
+   TYPEWRITER ANIMATION STYLES (for agent passive & playstyle, weapon desc & tips)
    ============================================================ */
 .guide-modal-body #agent-passive,
-.guide-modal-body #agent-playstyle {
+.guide-modal-body #agent-playstyle,
+#weapon-modal-desc,
+#weapon-modal-tips {
   font-size: 14px;
   line-height: 1.7;
   color: var(--muted);
@@ -92,7 +94,9 @@
 }
 
 .guide-modal-body #agent-passive.typing,
-.guide-modal-body #agent-playstyle.typing {
+.guide-modal-body #agent-playstyle.typing,
+#weapon-modal-desc.typing,
+#weapon-modal-tips.typing {
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid var(--primary);
@@ -100,7 +104,9 @@
 }
 
 .guide-modal-body #agent-passive.typing-done,
-.guide-modal-body #agent-playstyle.typing-done {
+.guide-modal-body #agent-playstyle.typing-done,
+#weapon-modal-desc.typing-done,
+#weapon-modal-tips.typing-done {
   overflow: visible;
   white-space: normal;
   border-right: none;
