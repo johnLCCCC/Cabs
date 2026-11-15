@@ -100,24 +100,27 @@
   </section>
 
   <!-- Role Filter, Search & Sort -->
-  <div class="guides-filter" role="search" aria-label="Agent filters" style="max-width: 1400px; margin: 0 auto 24px; padding: 0 20px; flex-wrap: wrap; gap: 12px; align-items: center; display: flex;">
+  <div class="guides-filter sticky-filter" role="search" aria-label="Agent filters" style="max-width: 1400px; margin: 0 auto 24px; padding: 12px 20px; flex-wrap: wrap; gap: 12px; align-items: center; display: flex;">
     <!-- Role Filter Buttons -->
-    <div role="tablist" aria-label="Filter by role" style="display: flex; gap: 8px; flex-wrap: wrap;">
-      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" aria-controls="tier-list-container">All Roles</button>
-      <button class="filter-btn" data-filter="duelist" role="tab" aria-selected="false" aria-controls="tier-list-container">Duelists</button>
-      <button class="filter-btn" data-filter="initiator" role="tab" aria-selected="false" aria-controls="tier-list-container">Initiators</button>
-      <button class="filter-btn" data-filter="controller" role="tab" aria-selected="false" aria-controls="tier-list-container">Controllers</button>
-      <button class="filter-btn" data-filter="sentinel" role="tab" aria-selected="false" aria-controls="tier-list-container">Sentinels</button>
+    <div style="min-width: 0;">
+      <label for="agent-role-filter" class="sr-only">Filter by role</label>
+      <div class="filter-btn-group" role="tablist" aria-label="Filter by role" id="agent-role-filter">
+        <button class="filter-btn filter-control active" data-filter="all" role="tab" aria-selected="true" aria-controls="tier-list-container">All Roles</button>
+        <button class="filter-btn filter-control" data-filter="duelist" role="tab" aria-selected="false" aria-controls="tier-list-container">Duelists</button>
+        <button class="filter-btn filter-control" data-filter="initiator" role="tab" aria-selected="false" aria-controls="tier-list-container">Initiators</button>
+        <button class="filter-btn filter-control" data-filter="controller" role="tab" aria-selected="false" aria-controls="tier-list-container">Controllers</button>
+        <button class="filter-btn filter-control" data-filter="sentinel" role="tab" aria-selected="false" aria-controls="tier-list-container">Sentinels</button>
+      </div>
     </div>
     <!-- Search Input -->
     <div style="flex: 1; min-width: 200px; max-width: 320px;">
       <label for="agent-search" class="sr-only">Search agents by name</label>
-      <input type="search" id="agent-search" class="filter-input" placeholder="Search agents..." aria-label="Search agents by name" style="width: 100%; padding: 10px 16px; font-size: 13px; font-weight: 500; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); background: var(--card-bg); color: var(--text); transition: border-color 180ms ease, box-shadow 180ms ease;">
+      <input type="search" id="agent-search" class="filter-input filter-control" placeholder="Search agents..." aria-label="Search agents by name">
     </div>
     <!-- Sort Select -->
     <div style="min-width: 180px;">
       <label for="agent-sort" class="sr-only">Sort by tier</label>
-      <select id="agent-sort" class="filter-select" aria-label="Sort agents by tier" style="width: 100%; padding: 10px 16px; font-size: 13px; font-weight: 500; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); background: var(--card-bg); color: var(--text); cursor: pointer; appearance: none; background-image: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b8b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E&#34;); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px;">
+      <select id="agent-sort" class="filter-select filter-control" aria-label="Sort agents by tier">
         <option value="tier-asc">Tier: S → D</option>
         <option value="tier-desc">Tier: D → S</option>
         <option value="name-asc">Name: A → Z</option>
@@ -455,10 +458,121 @@
     // Call once on init
     initCardData();
 
-    // Inject CSS for hiding elements
+    // Inject CSS for hiding elements + sticky filter bar + unified filter controls
     const style = document.createElement('style');
     style.textContent = `
       .is-hidden { display: none !important; }
+
+      .sticky-filter {
+        position: sticky;
+        top: var(--nav-height);
+        z-index: 800;
+        background: var(--nav-glass);
+        backdrop-filter: saturate(180%) blur(16px);
+        -webkit-backdrop-filter: saturate(180%) blur(16px);
+        border-bottom: 1px solid var(--nav-glass-border);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        box-shadow: none;
+        transition: box-shadow 200ms ease, background 200ms ease;
+      }
+
+      .sticky-filter.is-stuck {
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        background: rgba(15, 15, 15, 0.88);
+        border-bottom-color: rgba(220, 20, 60, 0.08);
+      }
+
+      /* Unified filter controls - identical height, padding, alignment */
+      .filter-control {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: var(--card-bg);
+        color: var(--muted);
+        transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+        white-space: nowrap;
+        box-sizing: border-box;
+        height: 36px;
+      }
+
+      .filter-control:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+      }
+
+      /* Search input */
+      .filter-input.filter-control {
+        width: 100%;
+        justify-content: flex-start;
+        padding-left: 20px;
+        padding-right: 20px;
+        color: var(--text);
+      }
+      .filter-input.filter-control::placeholder {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .filter-input.filter-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.15);
+      }
+
+      /* Sort select */
+      .filter-select.filter-control {
+        width: 100%;
+        justify-content: space-between;
+        padding-right: 44px;
+        appearance: none;
+        cursor: pointer;
+        color: var(--text);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b8b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+      }
+      .filter-select.filter-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.15);
+      }
+
+      /* Role buttons wrapper alignment */
+      .filter-btn-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 900px) {
+        .sticky-filter {
+          top: var(--nav-height-compact);
+          padding: 10px 16px;
+          gap: 8px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sticky-filter {
+          padding: 8px 12px;
+          border-radius: 8px;
+        }
+        .sticky-filter .filter-btn {
+          padding: 6px 12px;
+          font-size: 11px;
+        }
+        .sticky-filter .filter-control {
+          padding: 8px 12px;
+          font-size: 12px;
+          border-radius: 20px;
+          height: 32px;
+        }
+      }
     `;
     document.head.appendChild(style);
 
@@ -552,6 +666,39 @@
         applyFiltersAndSort();
       });
     });
+
+    // Sticky filter bar - add shadow when stuck
+    const stickyFilter = document.querySelector('.sticky-filter');
+    if (stickyFilter) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            // Element is stuck (scrolled past its original position)
+            stickyFilter.classList.add('is-stuck');
+          } else {
+            // Element is at its natural position
+            stickyFilter.classList.remove('is-stuck');
+          }
+        });
+      }, {
+        rootMargin: '-1px 0px 0px 0px', // Trigger just before it sticks
+        threshold: [1]
+      });
+
+      // Create a sentinel element at the filter's original position
+      const sentinel = document.createElement('div');
+      sentinel.style.height = '1px';
+      sentinel.style.width = '100%';
+      sentinel.style.position = 'absolute';
+      sentinel.style.top = '0';
+      sentinel.style.left = '0';
+      sentinel.style.pointerEvents = 'none';
+
+      stickyFilter.parentElement.insertBefore(sentinel, stickyFilter);
+      stickyFilter.style.position = 'sticky'; // Ensure it's sticky
+
+      observer.observe(sentinel);
+    }
   });
 </script>
 </body>
