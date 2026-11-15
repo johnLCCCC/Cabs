@@ -6,6 +6,7 @@
   <title>Meta — Valorant</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="agents.css">
+  <link rel="stylesheet" href="guides.css">
   <link rel="stylesheet" href="Agents-modal.css">
   <link rel="icon" type="image/png" href="dum.png">
   <!-- Open Graph & Twitter Card -->
@@ -97,6 +98,33 @@
       </div>
     </div>
   </section>
+
+  <!-- Role Filter, Search & Sort -->
+  <div class="guides-filter" role="search" aria-label="Agent filters" style="max-width: 1400px; margin: 0 auto 24px; padding: 0 20px; flex-wrap: wrap; gap: 12px; align-items: center; display: flex;">
+    <!-- Role Filter Buttons -->
+    <div role="tablist" aria-label="Filter by role" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" aria-controls="tier-list-container">All Roles</button>
+      <button class="filter-btn" data-filter="duelist" role="tab" aria-selected="false" aria-controls="tier-list-container">Duelists</button>
+      <button class="filter-btn" data-filter="initiator" role="tab" aria-selected="false" aria-controls="tier-list-container">Initiators</button>
+      <button class="filter-btn" data-filter="controller" role="tab" aria-selected="false" aria-controls="tier-list-container">Controllers</button>
+      <button class="filter-btn" data-filter="sentinel" role="tab" aria-selected="false" aria-controls="tier-list-container">Sentinels</button>
+    </div>
+    <!-- Search Input -->
+    <div style="flex: 1; min-width: 200px; max-width: 320px;">
+      <label for="agent-search" class="sr-only">Search agents by name</label>
+      <input type="search" id="agent-search" class="filter-input" placeholder="Search agents..." aria-label="Search agents by name" style="width: 100%; padding: 10px 16px; font-size: 13px; font-weight: 500; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); background: var(--card-bg); color: var(--text); transition: border-color 180ms ease, box-shadow 180ms ease;">
+    </div>
+    <!-- Sort Select -->
+    <div style="min-width: 180px;">
+      <label for="agent-sort" class="sr-only">Sort by tier</label>
+      <select id="agent-sort" class="filter-select" aria-label="Sort agents by tier" style="width: 100%; padding: 10px 16px; font-size: 13px; font-weight: 500; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); background: var(--card-bg); color: var(--text); cursor: pointer; appearance: none; background-image: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b8b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E&#34;); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px;">
+        <option value="tier-asc">Tier: S → D</option>
+        <option value="tier-desc">Tier: D → S</option>
+        <option value="name-asc">Name: A → Z</option>
+        <option value="name-desc">Name: Z → A</option>
+      </select>
+    </div>
+  </div>
 
   <!-- Agent Tier List -->
   <section id="agent-tier" class="section-container scroll-reveal">
@@ -381,5 +409,150 @@
 
 <script src="Agents.js"></script>
 <script src="scroll-anim.js"></script>
+<script>
+  // Role Filter, Search & Sort for Meta Page Agent Tier List
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('agent-search');
+    const sortSelect = document.getElementById('agent-sort');
+    const tierListContainer = document.getElementById('tier-list-container');
+
+    // Agent to role mapping from agentsData
+    const agentRoles = {};
+    const agentNames = {};
+    if (window.agentsData) {
+      Object.entries(window.agentsData).forEach(([id, agent]) => {
+        agentRoles[id] = agent.role.toLowerCase();
+        agentNames[id] = agent.name.toLowerCase();
+      });
+    }
+
+    // Tier order for sorting
+    const tierOrder = { s: 0, a: 1, b: 2, c: 3, d: 4 };
+
+    // Initialize data attributes on all agent cards (run once)
+    function initCardData() {
+      const tierRows = tierListContainer.querySelectorAll('.tier-row');
+      tierRows.forEach(row => {
+        const tierLabel = row.querySelector('.tier-label');
+        if (!tierLabel) return;
+        const tierClass = Array.from(tierLabel.classList).find(c => tierOrder[c] !== undefined);
+        const tierValue = tierClass ? tierOrder[tierClass] : 99;
+
+        // Store tier index on tier-label for sorting
+        tierLabel.dataset.tierIndex = tierValue;
+
+        const cards = row.querySelectorAll('.card.agent-card.small');
+        cards.forEach(card => {
+          const agentId = card.dataset.agentId;
+          card.dataset.tier = tierValue;
+          card.dataset.role = agentRoles[agentId] || '';
+          card.dataset.name = agentNames[agentId] || '';
+        });
+      });
+    }
+
+    // Call once on init
+    initCardData();
+
+    // Inject CSS for hiding elements
+    const style = document.createElement('style');
+    style.textContent = `
+      .is-hidden { display: none !important; }
+    `;
+    document.head.appendChild(style);
+
+    function applyFiltersAndSort() {
+      const roleFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+      const searchQuery = searchInput.value.toLowerCase().trim();
+      const sortValue = sortSelect.value;
+
+      // Get all tier rows and their cards
+      const tierRows = tierListContainer.querySelectorAll('.tier-row');
+
+      // First pass: filter individual cards (search + role filter)
+      tierRows.forEach(row => {
+        const roleColumns = row.querySelectorAll('.role-column');
+        let rowHasVisibleCards = false;
+
+        roleColumns.forEach(column => {
+          const cards = column.querySelectorAll('.card.agent-card.small');
+          let columnHasVisibleCards = false;
+
+          cards.forEach(card => {
+            const name = card.dataset.name || '';
+            const role = card.dataset.role || '';
+
+            const searchMatch = searchQuery === '' || name.includes(searchQuery);
+            const roleMatch = roleFilter === 'all' || role === roleFilter;
+            const shouldShow = searchMatch && roleMatch;
+
+            if (shouldShow) {
+              card.classList.remove('is-hidden');
+              columnHasVisibleCards = true;
+              rowHasVisibleCards = true;
+            } else {
+              card.classList.add('is-hidden');
+            }
+          });
+
+          // Hide/show role column based on visible cards
+          if (columnHasVisibleCards) {
+            column.classList.remove('is-hidden');
+          } else {
+            column.classList.add('is-hidden');
+          }
+        });
+
+        // Hide/show tier row based on visible cards
+        if (rowHasVisibleCards) {
+          row.classList.remove('is-hidden');
+        } else {
+          row.classList.add('is-hidden');
+        }
+      });
+
+      // Second pass: sort tier rows (only for tier-asc/tier-desc)
+      if (sortValue === 'tier-asc' || sortValue === 'tier-desc') {
+        const visibleRows = Array.from(tierRows).filter(row => !row.classList.contains('is-hidden'));
+
+        visibleRows.sort((a, b) => {
+          // Use tier-label's data-tier-index (set in initCardData)
+          const tierA = parseInt(a.querySelector('.tier-label')?.dataset?.tierIndex ?? '99', 10);
+          const tierB = parseInt(b.querySelector('.tier-label')?.dataset?.tierIndex ?? '99', 10);
+
+          return sortValue === 'tier-asc' ? tierA - tierB : tierB - tierA;
+        });
+
+        // Reorder in DOM
+        visibleRows.forEach(row => tierListContainer.appendChild(row));
+      }
+      // Note: name sorting requires flat view - skip in grouped tier view
+    }
+
+    // Real-time search (no debounce - local filtering is instant)
+    searchInput.addEventListener('input', applyFiltersAndSort);
+
+    // Also handle search clear button (×) in search inputs
+    searchInput.addEventListener('search', applyFiltersAndSort);
+
+    sortSelect.addEventListener('change', applyFiltersAndSort);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        // Apply filters and sort
+        applyFiltersAndSort();
+      });
+    });
+  });
+</script>
 </body>
 </html>
